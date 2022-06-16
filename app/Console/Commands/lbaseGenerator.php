@@ -136,7 +136,12 @@ class lbaseGenerator extends Command
                 $this->getStub('Model')
             );
         }
-        file_put_contents(app_path("/Models/Generator/${name}.php"), $modelTemplate);
+        $dir = app_path("Models/Generator/");
+
+        if (!file_exists($dir)) {
+            mkdir($dir, 0777, true);
+        }
+        file_put_contents(app_path("Models/Generator/${name}.php"), $modelTemplate);
         $this->info("New Model File : ".app_path("/Models/Generator/${name}.php"));
     }
 
