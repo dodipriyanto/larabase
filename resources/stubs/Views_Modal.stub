@@ -1,0 +1,24 @@
+<!-- Modal -->
+
+<div class="md-modal md-effect-1" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModal" style=" height: 80% !important;" >
+
+    <div class="md-content">
+        <h3 class="theme-bg2 modal-title">Modal Dialog</h3>
+        <button type="button" class="close  md-close" data-dismiss="modal" aria-label="Close" style="margin-top: -4em">
+            <span aria-hidden="true" style="font-size: 2rem; padding: 10px;" class="text-white">&times;</span>
+        </button>
+        <div>
+            <form class="form-horizontal" method="POST" id="formModal"
+                  novalidate>
+                @csrf
+                <input type="hidden" name="id" id="id" class="id">
+
+                {{strTableForm}}
+
+                <div class="modal-footer">
+                    <button id="formSubmit" type="submit" class="btn btn-outline-info">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
