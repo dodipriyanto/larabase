@@ -97,6 +97,12 @@ class lbaseGenerator extends Command
             ],
             $this->getStub('Controller')
         );
+
+        $dir = app_path("Http/Controllers/Generator");
+        if (!file_exists($dir)) {
+            mkdir($dir, 0777, true);
+        }
+
         file_put_contents(app_path("Http/Controllers/Generator/{$name}Controller.php"), $controllerTemplate);
         $this->info("New Controller File : ".app_path("Http/Controllers/Generator/{$name}Controller.php"));
     }
@@ -272,6 +278,12 @@ class lbaseGenerator extends Command
             $this->getStub('Service')
         );
 
+        $dir = app_path("Service/Generator");
+
+        if (!file_exists($dir)) {
+            mkdir($dir, 0777, true);
+        }
+
         file_put_contents(app_path("Service/Generator/{$name}Service.php"), $serviceTemplate);
         $this->info("New Service File : ".app_path("Service/Generator/{$name}Service.php"));
 
@@ -293,6 +305,11 @@ class lbaseGenerator extends Command
             ],
             $this->getStub('Repository')
         );
+        $dir = app_path("Models/Repository");
+
+        if (!file_exists($dir)) {
+            mkdir($dir, 0777, true);
+        }
 
         file_put_contents(app_path("Repository/Generator/{$name}Repository.php"), $repositoryTemplate);
         $this->info("New Repository File : ".app_path("Repository/Generator/{$name}Repository.php"));

@@ -75,7 +75,7 @@ class GenerateTable
 
            $columnType = $this->command->choice(
                 "$i. Type For Column $columnName?",
-                ['int', 'string', 'text', 'date','timestamp']
+                ['integer', 'string', 'text', 'date','timestamp']
             );
 
            $arrResult[$columnName] = $columnType;
