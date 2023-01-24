@@ -15,6 +15,7 @@
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.2",
+        "owen-it/laravel-auditing": "^13.0",
         "richan-fongdasen/eloquent-blameable": "^1.7",
         "yajra/laravel-datatables-oracle": "^9.18"
     },

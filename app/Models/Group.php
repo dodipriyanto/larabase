@@ -9,10 +9,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use GoldSpecDigital\LaravelEloquentUUID\Database\Eloquent\Uuid;
 use DigitalCloud\Blameable\Traits\Blameable;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Group extends Model
+class Group extends Model implements Auditable
 {
     use HasFactory, SoftDeletes, Uuid, Blameable;
+    use \OwenIt\Auditing\Auditable;
 
     protected $primaryKey = 'id';
     public $incrementing = false;

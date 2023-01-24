@@ -141,7 +141,7 @@ table td.r, table th.r {
   font-size: 18px;
   color: #fff;
   line-height: 1.2;
-  font-weight: unset;
+  font-weight: bold;
 }
 
 tbody tr:nth-child(even) {
