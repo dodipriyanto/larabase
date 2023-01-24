@@ -12,13 +12,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements Auditable
 {
     use HasFactory, Notifiable;
     use SoftDeletes;
     use Uuid;
     use Blameable;
+    use \OwenIt\Auditing\Auditable;
+
 
     protected $table = 'conf_users';
     protected $primaryKey = 'id';

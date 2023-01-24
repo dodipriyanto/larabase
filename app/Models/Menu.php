@@ -10,10 +10,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use GoldSpecDigital\LaravelEloquentUUID\Database\Eloquent\Uuid;
 use Illuminate\Support\Facades\Auth;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Menu extends Model
+class Menu extends Model implements Auditable
 {
     use HasFactory, SoftDeletes, Uuid, Blameable;
+    use \OwenIt\Auditing\Auditable;
 
     protected $keyType = 'string';
 

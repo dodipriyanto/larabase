@@ -47,6 +47,7 @@ class CreateAuditsTable extends Migration
         });
     }
 
+
     /**
      * Reverse the migrations.
      *
