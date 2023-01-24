@@ -1,5 +1,4 @@
 <!-- Modal -->
-<!-- Modal -->
 <div class="modal fade text-left" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModal" >
     <div class="modal-dialog" role="document">
         <div class="modal-content">

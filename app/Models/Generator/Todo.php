@@ -13,7 +13,7 @@ use DigitalCloud\Blameable\Traits\Blameable;
 use OwenIt\Auditing\Contracts\Auditable;
 
 
-class {{modelName}} extends Model implements Auditable
+class Todo extends Model implements Auditable
 {
     use HasFactory, SoftDeletes, Uuid, Blameable;
     use \OwenIt\Auditing\Auditable;
@@ -21,10 +21,12 @@ class {{modelName}} extends Model implements Auditable
     protected $keyType = 'string';
     protected $primaryKey = 'id';
     public $incrementing = false;
-    protected $table = 'tbl_{{modelNameSingular}}';
+    protected $table = 'tbl_todo';
 
     protected $fillable = [
         'id',
-        {{column}}
+        'name', 
+        'code', 
+        
     ];
 }

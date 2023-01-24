@@ -14,7 +14,23 @@
                     @csrf
                     <input type="hidden" name="id" id="id" class="id">
 
-                     {{strTableForm}}
+                     <fieldset class='form-group floating-label-form-group'>
+                    <label for='name'>Name</label>
+                    <div class='controls'>
+                        <input type='text' class='form-control' id='name' name='name'
+                               placeholder='Name' required
+                               data-validation-required-message='This field is required'>
+                    </div>
+                </fieldset>
+                 <fieldset class='form-group floating-label-form-group'>
+                    <label for='code'>Code</label>
+                    <div class='controls'>
+                        <input type='text' class='form-control' id='code' name='code'
+                               placeholder='Code' required
+                               data-validation-required-message='This field is required'>
+                    </div>
+                </fieldset>
+                 
 
                     <div class="modal-footer">
                         <button id="formSubmit" type="submit" class="btn btn-outline-info">Save changes</button>

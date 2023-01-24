@@ -1,6 +1,6 @@
 
 @extends('admin.layouts.main')
-@section('title', '{{modelName}}')
+@section('title', 'Todo')
 
 @section('stylesheet')
 
@@ -16,7 +16,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">{{modelName}} Table</h4>
+                        <h4 class="card-title">Todo Table</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
@@ -44,7 +44,9 @@
                                             <thead>
                                                 <tr class="table100-head">
                                                     <th width="3%" class="text-center">No</th>
-                                                    {{strTable}}
+                                                    <th>Name</th>
+                                           <th>Code</th>
+                                           
                                                     <th class="text-center">Action</th>
                                                 </tr>
                                             </thead>
@@ -62,7 +64,7 @@
             </div>
         </div>
     </section>
-     @include('admin.contents.{{modelNameSingular}}._modal')
+     @include('admin.contents.todo._modal')
 
 @endsection
 
@@ -70,10 +72,10 @@
 
     <script type="text/javascript">
         var url = {
-            detail : "{{route('dashboard_{{modelNamePlural}}_detail')}}",
-            delete : "{{route('dashboard_{{modelNamePlural}}_delete')}}",
-            submit : "{{route('dashboard_{{modelNamePlural}}_post')}}",
-            table : "{{route('dashboard_{{modelNamePlural}}_table')}}"
+            detail : "{{route('dashboard_todos_detail')}}",
+            delete : "{{route('dashboard_todos_delete')}}",
+            submit : "{{route('dashboard_todos_post')}}",
+            table : "{{route('dashboard_todos_table')}}"
         };
         var table;
 
@@ -86,7 +88,9 @@
                 ajax: url.table,
                 columns: [
                     {data: 'DT_RowIndex', name: 'DT_RowIndex', title: '#', width: '2%'},
-                    {{strTableAjax}}
+                    {data: 'name', name: 'name'},
+                    {data: 'code', name: 'code'},
+                    
                     {data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-center',width: '15%'},
                 ]
             });
@@ -99,7 +103,9 @@
                 $.get(url.detail, {id : id}, function (result){
 
                     let response = result.data;
-                    {{strTableModal}}
+                    $('#name').val(response.name)
+                    $('#code').val(response.code)
+                    
 
                 });
 
@@ -114,7 +120,9 @@
                 $.get(url.detail,{id : id}, function (result){
                     let response = result.data;
                     $('#id').val(response.id)
-                    {{strTableModal}}
+                    $('#name').val(response.name)
+                    $('#code').val(response.code)
+                    
 
                 });
 
@@ -162,7 +170,13 @@
 
             $('#formModal').validate({ // initialize the plugin
                 rules: {
-                    {{strTableRules}}
+                    name: {
+                        required: true,
+                    },
+                    code: {
+                        required: true,
+                    },
+                    
 
                 },
                 submitHandler: function (form) {
