@@ -51,18 +51,12 @@
     <!-- END: Theme CSS-->
 
     <!-- BEGIN: Page CSS-->
-    <link rel="stylesheet" type="text/css"
-          href="{{asset('modern-admin/app-assets/css/core/menu/menu-types/vertical-menu.css')}}">
-    <link rel="stylesheet" type="text/css"
-          href="{{asset('modern-admin/app-assets/css/core/colors/palette-gradient.css')}}">
-    <link rel="stylesheet" type="text/css"
-          href="{{asset('modern-admin/app-assets/fonts/simple-line-icons/style.css')}}">
-    <link rel="stylesheet" type="text/css"
-          href="{{asset('modern-admin/app-assets/css/core/colors/palette-gradient.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('modern-admin/app-assets/css/core/menu/menu-types/vertical-menu.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('modern-admin/app-assets/css/core/colors/palette-gradient.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('modern-admin/app-assets/fonts/simple-line-icons/style.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('modern-admin/app-assets/css/core/colors/palette-gradient.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('modern-admin/app-assets/css/pages/timeline.css')}}">
-
     <link rel="stylesheet" type="text/css" href="{{asset('modern-admin/app-assets/vendors/css/tables/datatable/datatables.min.css')}}">
-
     <link rel="stylesheet" type="text/css" href="{{asset('modern-admin/app-assets/vendors/css/extensions/sweetalert2.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('modern-admin/app-assets/css/core/menu/menu-types/vertical-menu.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('modern-admin/app-assets/css/core/colors/palette-gradient.css')}}">
@@ -74,6 +68,8 @@
     <link rel="stylesheet" type="text/css" href="{{asset('lib/flatpickr/css/flatpickr.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('modern-admin/app-assets/vendors/css/forms/selects/select2.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('modern-admin/app-assets/css/plugins/forms/validation/form-validation.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('lib/bootstrap-fileinput/css/fileinput.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('lib/font-awesome/css/font-awesome.min.css')}}">
 
     <!-- END: Page CSS-->
 
@@ -192,6 +188,10 @@
 <script src="{{asset('modern-admin/app-assets/vendors/js/forms/toggle/switchery.min.js')}}"></script>
 <script src="{{asset('modern-admin/app-assets/js/scripts/forms/form-login-register.js')}}"></script>
 <script src="{{asset('modern-admin/app-assets/js/scripts/forms/validation/form-validation.js')}}"></script>
+
+<script src="{{asset('lib/bootstrap-fileinput/js/fileinput.js')}}"></script>
+<script src="{{asset('lib/ckeditor/ckeditor.js')}}"></script>
+<script src="{{asset('lib/fa-theme/theme.js')}}"></script>
 
 
 <!-- END: Page JS-->

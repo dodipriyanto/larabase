@@ -38,7 +38,7 @@
                                     class="avatar avatar-online">
                                 <img
                                         {{--                                        src="{{asset('storage/images/'.Auth::user()->profile_picture)}}"--}}
-                                        src="{{(Auth::user()->profile_picture ? asset('storage/images/'.Auth::user()->profile_picture) : asset('no_image.png'))}}"
+                                        src="{{(Auth::user()->profile_picture ? asset('storage/images/'.Auth::user()->profile_picture) : asset('img/user_noimage.jpg'))}}"
                                         alt="avatar"><i></i></span></a>
                         <div class="dropdown-menu dropdown-menu-right">
                             <a class="dropdown-item"

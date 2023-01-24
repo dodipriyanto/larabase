@@ -18,7 +18,7 @@
                         <label for="user-name">Full Name</label>
                         <div class="controls">
                             <input type="text" class="form-control" id="fullname" name="fullname"
-                                   placeholder="Full Name" required
+                                   placeholder="Full Name"
                                    data-validation-required-message="This field is required">
                         </div>
                     </fieldset>
@@ -27,7 +27,7 @@
                         <label for="user-name">User Name</label>
                         <div class="controls">
                             <input type="text" class="form-control" id="username" name="username"
-                                   placeholder="User Name" required
+                                   placeholder="User Name"
                                    data-validation-required-message="This field is required">
                         </div>
                     </fieldset>

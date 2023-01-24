@@ -183,35 +183,37 @@
                         'X-CSRF-TOKEN': CSRF_TOKEN
                     }
                 });
-
-                swal({
+                Swal.fire({
                     title: `Are you sure delete ${$(this).data('name')}?`,
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                })
-                    .then((confirm) => {
-                        if (confirm) {
-                            $.ajax({
-                                url: url.delete,
-                                method: 'GET',
-                                data: {
-                                    id: $(this).data('id'),
-                                },
-                            })
-                                .then((result) => {
-                                    console.log(result)
-                                    swalStatus(result,"myModal")
-                                }).then(() => {
-                                tableReload(table)
-                            });
-                        }
-                        // else {
-                        //     swal("Your imaginary file is safe!");
-                        // }
-                    });
-
-
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!',
+                }).then((result) => {
+                    if (result.value) {
+                        $.ajax({
+                            url: url.delete,
+                            method: 'GET',
+                            data: {
+                                id: $(this).data('id'),
+                            },
+                        })
+                            .then((result) => {
+                                Swal.fire({
+                                    title: 'Deleted!',
+                                    text: result.success,
+                                    icon: 'success',
+                                    showCancelButton: false,
+                                    showConfirmButton: false,
+                                    timer: 1000,
+                                })
+                            }).then(() => {
+                            tableReload(table)
+                        });
+                    }
+                });
             });
 
 

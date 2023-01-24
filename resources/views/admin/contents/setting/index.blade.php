@@ -2,60 +2,71 @@
 @section('title', 'Setting')
 
 @section('stylesheet')
-    <link rel="stylesheet" type="text/css" href="{{asset('lib/bootstrap-fileinput/css/fileinput.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('lib/font-awesome/css/font-awesome.min.css')}}">
 @endsection
-
 @section('breadcumbs')
     @include('admin.templates.breadcrumbs')
 @endsection
-
 @section('content')
-    <div class="row">
+    <section id="configuration">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">{{$menu['breadcrumbs']->name}} Table</h4>
+                        <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                        <div class="heading-elements">
+                            <ul class="list-inline mb-0">
+                                <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                                <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                                <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                                <li><a data-action="close"><i class="ft-x"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
 
-        <div class="col-sm-12">
-            <div class="card">
-                <div class="card-header">
-                    <h5>{{$menu['breadcrumbs']->name}} Table</h5>
-                </div>
-                <div class="card-block">
-                    @php
-                        $current_path = \Request::route()->getName();
-                        getPagesAccess($current_path);
-                    @endphp
-                    <div class="table-responsive">
-                        <table id="contentTable" class="display table nowrap table-striped table-hover" style="width:100%">
-                            <thead>
-                                <tr class="table100-head">
-                                    <th width="3%" class="text-center">No</th>
-                                    <th>Parameter</th>
-                                    <th>Type</th>
-                                    <th>Value</th>
-                                    <th class="text-center">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
 
-                            </tbody>
+                    <div class="card-content collapse show">
 
-                        </table>
+                        <div class="card-body card-dashboard">
+                            @php
+                                $current_path = \Request::route()->getName();
+                                getPagesAccess($current_path);
+                            @endphp
+
+                            <div class="table-responsive">
+                                <div class="wrap-table100">
+                                    <div class="table100">
+                                        <table id="contentTable" class="display table nowrap table-striped table-hover" style="width:100%">
+                                            <thead>
+                                            <tr class="table100-head">
+                                                <th width="3%" class="text-center">No</th>
+                                                <th>Parameter</th>
+                                                <th>Type</th>
+                                                <th>Value</th>
+                                                <th class="text-center">Action</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+
+                                            </tbody>
+
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+    </section>
 
-
-    </div>
     @include('admin.contents.setting._modal')
-
 @endsection
 
 
-
 @section('script')
-    <script src="{{asset('lib/bootstrap-fileinput/js/fileinput.js')}}"></script>
-    <script src="{{asset('lib/ckeditor/ckeditor.js')}}"></script>
-    <script src="{{asset('lib/fa-theme/theme.js')}}"></script>
     <script type="text/javascript">
         var url = {
             detail : "{{route('dashboard_setting_detail')}}",
@@ -144,34 +155,37 @@
                         'X-CSRF-TOKEN': CSRF_TOKEN
                     }
                 });
-
-                swal({
+                Swal.fire({
                     title: `Are you sure delete ${$(this).data('name')}?`,
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                })
-                    .then((confirm) => {
-                        if (confirm) {
-                            $.ajax({
-                                url: url.delete,
-                                method: 'GET',
-                                data: {
-                                    id: $(this).data('id'),
-                                },
-                            })
-                                .then((result) => {
-                                    swalStatus(result,"myModal")
-                                }).then(() => {
-                                tableReload(table)
-                            });
-                        }
-                        // else {
-                        //     swal("Your imaginary file is safe!");
-                        // }
-                    });
-
-
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!',
+                }).then((result) => {
+                    if (result.value) {
+                        $.ajax({
+                            url: url.delete,
+                            method: 'GET',
+                            data: {
+                                id: $(this).data('id'),
+                            },
+                        })
+                            .then((result) => {
+                                Swal.fire({
+                                    title: 'Deleted!',
+                                    text: result.success,
+                                    icon: 'success',
+                                    showCancelButton: false,
+                                    showConfirmButton: false,
+                                    timer: 1000,
+                                })
+                            }).then(() => {
+                            tableReload(table)
+                        });
+                    }
+                });
             });
 
 

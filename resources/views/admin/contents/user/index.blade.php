@@ -172,14 +172,21 @@
                 });
             });
 
-            $('#formModal').on('submit', function (event) {
-                event.preventDefault();
-                let data = $('#formModal').serialize();
+            $('#formModal').validate({ // initialize the plugin
+                rules: {
+                    username: {
+                        required: true,
+                    }
 
-                $.post(url.submit, data, function (result) {
-                    swalStatus(result,"myModal")
-                });
-            })
+                },
+                submitHandler: function(form) {
+                    let data = $('#formModal').serialize();
+
+                    $.post(url.submit, data, function(result) {
+                        swalStatus(result, "myModal", '', table)
+                    });
+                }
+            });
 
         });
     </script>

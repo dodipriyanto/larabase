@@ -160,7 +160,7 @@
                                         <div class="profile-img center">
                                             <img class="img-thumbnail img-fluid img-center"
                                                  style="max-height: 400px; max-width: 340px"
-                                                 src="{{(Auth::user()->profile_picture ? asset('storage/images/'.Auth::user()->profile_picture) : asset('no_image.png'))}}"
+                                                 src="{{(Auth::user()->profile_picture ? asset('storage/images/'.Auth::user()->profile_picture) : asset('img/user_noimage.jpg'))}}"
                                                  itemprop="thumbnail" alt="Image description">
                                         </div>
                                     </div>
