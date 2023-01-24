@@ -2,12 +2,6 @@
 @section('title', 'User')
 
 @section('stylesheet')
-    <link rel="stylesheet" type="text/css"
-          href="{{asset('modern-admin/app-assets/vendors/css/forms/selects/select2.min.css')}}">
-
-    <link rel="stylesheet" type="text/css"
-          href="{{asset('modern-admin/app-assets/css/plugins/forms/validation/form-validation.css')}}">
-
 @endsection
 @section('breadcumbs')
     @include('admin.templates.breadcrumbs')
@@ -73,18 +67,10 @@
 
 
 @section('script')
-    <script src="{{asset('modern-admin/app-assets/vendors/js/forms/select/select2.full.min.js')}}"></script>
-    <script src="{{asset('modern-admin/app-assets/js/scripts/forms/select/form-select2.js')}}"></script>
-    <script src="{{asset('lib/sweetalert2/sweetalert2.js')}}"></script>
+
 
     <!-- BEGIN: Page JS-->
-    <script src="{{asset('modern-admin/app-assets/vendors/js/forms/validation/jqBootstrapValidation.js')}}"></script>
-    <script src="{{asset('modern-admin/app-assets/vendors/js/forms/icheck/icheck.min.js')}}"></script>
-    <script src="{{asset('modern-admin/app-assets/vendors/js/forms/spinner/jquery.bootstrap-touchspin.js')}}"></script>
-    <script src="{{asset('modern-admin/app-assets/vendors/js/forms/toggle/bootstrap-switch.min.js')}}"></script>
-    <script src="{{asset('modern-admin/app-assets/vendors/js/forms/toggle/switchery.min.js')}}"></script>
-    <script src="{{asset('modern-admin/app-assets/js/scripts/forms/form-login-register.js')}}"></script>
-    <script src="{{asset('modern-admin/app-assets/js/scripts/forms/validation/form-validation.js')}}"></script>
+
 
     <script type="text/javascript">
         var url = {

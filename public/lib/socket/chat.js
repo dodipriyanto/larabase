@@ -1,6 +1,9 @@
 const WS_URL = $('meta[name=ws_url]').attr("content");
 const USER_ID = $('meta[name=user_id]').attr("content");
 var socket = io(WS_URL, { query: "id= "+USER_ID });
+
+
+//chat el
 var app = new Vue({
     el: '#chatApp',
     data: {
@@ -49,7 +52,7 @@ var app = new Vue({
             this.calcChatBoxStyle();
         },
         chatBoxMinimize: function(eleId){
-        	$("#chatbox-"+eleId+" .box-body, #chatbox-"+eleId+" .box-footer").slideToggle('slow');
+            $("#chatbox-"+eleId+" .box-body, #chatbox-"+eleId+" .box-footer").slideToggle('slow');
         },
         calcChatBoxStyle(){
             var i = '10em'; // start position
@@ -66,15 +69,90 @@ var app = new Vue({
         }
     }
 });
+
+//notif el
+var notif = new Vue({
+    el: '#notifApp',
+    data: {
+        totalnotifCount : 0,
+        user_id: USER_ID,
+        orderLists: [],
+        orderBox: [],
+        socketConnected : {
+            status: false,
+            msg: 'Connecting Please Wait...'
+        },
+        bArr: {}
+    },
+    props: ['id','order_code', 'socket'],
+
+    // mounted: function(){
+    //     socket.emit('order');
+    //     socket.on('getOrderResponse', this.getOrderResponse);
+    //     socket.on('addOrderResponse', this.addOrderResponse);
+    // },
+
+    methods: {
+        order: function (){
+            const orderBoxObj = Vue.extend(orderBox);
+            let b = new orderBoxObj({
+                propsData: {
+                    socket: socket,
+                    user_id: this.user_id,
+                    // cOrder: chat,
+                    // chatBoxClose: this.chatBoxClose,
+                    // chatBoxMinimize: this.chatBoxMinimize
+                }
+            }).$mount();
+            $('body').append(b.$el);
+            console.log(this.totalnotifCount);
+            // console.log(this.orderLists);
+            // socket.emit('addOrder', orderPacket);
+            // this.orderLists.push(orderPacket);
+            // notif.totalnotifCount = 0;
+
+            // this.orderLists = "";
+            // this.scrollToBottom();
+            // console.log(this.orderLists)
+            // this.totalnotifCount = this.totalnotifCount + 1;
+            // this.bArr = b;
+            // console.log(this.bArr)
+            // this.chatBox.unshift(chat.id);
+            // $('#msginput-'+chat.id).focus();
+        }
+
+
+    },
+});
+
+
+// init
 socket.on('connect', function(data){
     app.socketConnected.status = true;
     socket.emit('chatList',app.user_id);
+    socket.emit('orderList');
 });
+
+
 socket.on('connect_error', function(){
     app.socketConnected.status = false;
+    notif.socketConnected.status = false;
     app.socketConnected.msg = 'Could not connect to server';
     app.chatLists = [];
+    notif.orderLists = [];
 });
+
+socket.on('orderListRes', function(data){
+    console.log(data)
+    if (data.orderLists)
+    {
+        notif.totalnotifCount = data.orderLists.length;
+        notif.orderLists = data.orderLists;
+    }
+});
+
+
+
 socket.on('chatListRes', function(data){
     if (data.userDisconnected) {
         app.chatLists.findIndex(function(el) {
@@ -241,48 +319,57 @@ var chatbox = {
         <div class="chat_box" v-bind:id="'chatbox-' + cChat.id" >
             <div class="col-md-12 col-sm-12">
                 <div class="card">
-                    <div class="card-header bg-info text-white">
-                        <h4 class="card-title text-white">{{ cChat.username }} | <span style="font-size: 10px">{{ cChat.groupname }}</span></h4><span>{{ typing }}</span>
-<!--                        <span style="font-size: 10px">{{ cChat.last_login }}</span>-->
-                        <a class="heading-elements-toggle"><i class="ft-x" @click="chatBoxClose(cChat.id)"></i></a>
-                        <div class="heading-elements">
+                  
+                  
+                    <div class="card-header bg-primary text-white">
+                        <div class="media-left">
+                            <div class="avatar">
+                                <img :src="(cChat.profile_picture ? '/storage/images/'+  cChat.profile_picture : '/img/no_image.jpg')"  alt="p" width="32" height="32">
+                            </div>
+                            
+                        </div>
+                        <div class="media-body ml-1">
+                            <span class="font-weight-bolder"> {{cChat.username}} </span><br>
+                            <small class="notification-text"> {{cChat.groupname}} <br>{{ typing }}</small>
+                        </div>
+                        
+                        <div class="media-right">
                             <ul class="list-inline mb-0">
-                                <li><a data-action="close" @click="chatBoxClose(cChat.id)"><i class="ft-x"></i></a></li>
+                                <li>
+                                    <a data-action="close" @click="chatBoxClose(cChat.id)">
+                                        <span style="font-weight: bold; font-size: 1em">X</span>
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                     </div>
+                    
                     <div class="card-content collapse show">
-                        <div class="card-body">
-                        
+                        <div class="card-body user-chats" style="background-color: #F2F0F7; ">
                             <div class="message_container">
-                                 <div class="message">
-                                  <div class="direct-chat-messages" v-bind:id="'chatboxscroll-' + cChat.id">
-                                    <div v-for="messagePacket in messages" class="direct-chat-msg" v-bind:class="{ 'right' : (messagePacket.fromUserId == user_id) }" >
-                                       
-                    
-                                        <div v-if="messagePacket.type == 'text'" v-bind:class="{ 'pull-right text-sender ' : (messagePacket.fromUserId == user_id), 'pull-left text-receiver' : (messagePacket.fromUserId != user_id) }" v-html=messagePacket.message class="direct-chat-text clearfix" style="margin-right: 1px;margin-left: 1px;word-break: break-all;padding: 3px 10px; width: 100%">
-                                        </div>
-                                         <div class="direct-chat-info clearfix">
-                                            <small class="direct-chat-timestamp"  v-bind:class="{ 'pull-right ' : (messagePacket.fromUserId == user_id), 'pull-left ' : (messagePacket.fromUserId != user_id) }">{{ messagePacket.date | dateFormat }},{{ messagePacket.time }}</small>
-                                        </div>
-                    
-                                       
-                                    </div>
-                                </div>
-                            
-                                 </div>
-                                  <div class="time">
-                            
-                                 </div>
-                            </div>
+                                <div class="message">
+                                      <div class="direct-chat-messages" v-bind:id="'chatboxscroll-' + cChat.id">
+                                        <div v-for="messagePacket in messages" class="direct-chat-msg" v-bind:class="{ 'right' : (messagePacket.fromUserId == user_id) }" >
+                                           
+                                            <div v-if="messagePacket.type == 'text'" v-bind:class="{ 'pull-right text-sender ' : (messagePacket.fromUserId == user_id), 'pull-left text-receiver' : (messagePacket.fromUserId != user_id) }" v-html=messagePacket.message 
+                                            class="direct-chat-text clearfix" style="margin-right: 1px;margin-left: 1px;word-break: break-all;padding: 3px 10px; width: 100%; padding: 5px">
+                                            </div>
+                                             <div class="direct-chat-info clearfix">
+                                                <small class="direct-chat-timestamp"  v-bind:class="{ 'pull-right ' : (messagePacket.fromUserId == user_id), 'pull-left ' : (messagePacket.fromUserId != user_id) }">{{ messagePacket.date | dateFormat }},{{ messagePacket.time }}</small>
+                                            </div>
                         
-                           
-                            
+                                           
+                                        </div>
+                                    </div>
+                            </div>
                         </div>
                     </div>
+                    </div>
+                    
                     <div style="display: block; padding:10px" class="box-footer">
                         <div class="input-group">
-                            <input name="message" v-bind:id="'msginput-' + cChat.id" v-model.trim="message" placeholder="Type Message And Hit Enter" class="form-control" type="text" v-on:keydown="sendMessage($event)">
+                            <input name="message" v-bind:id="'msginput-' + cChat.id" v-model.trim="message" placeholder="Type Message And Hit Enter" class="form-control" type="text"
+                             v-on:keydown="sendMessage($event)">
                             <span class="input-group-btn">
                             </span>
                         </div>
@@ -290,4 +377,164 @@ var chatbox = {
                 </div>
             </div>
         </div>`
+};
+
+
+var orderBox = {
+    // data: function () {
+    //     return {
+    //         order: []
+    //     }
+    // },
+    props: ['id','order_code', 'socket'],
+    mounted: function(){
+        socket.emit('order');
+        socket.on('getOrderResponse', this.getOrderResponse);
+        socket.on('addOrderResponse', this.addOrderResponse);
+
+    },
+    destroyed: function() {
+        socket.removeListener('getOrderResponse', this.getOrderResponse);
+        socket.removeListener('addOrderResponse', this.addOrderResponse);
+    },
+    methods: {
+        sendOrder: function(){
+            let orderPacket = this.createOrderObj();
+            // this.socket.emit('addOrder', orderPacket);
+
+            const orderBoxObj = Vue.extend(orderBox);
+            let b = new orderBoxObj({
+                propsData: {
+                    socket : socket,
+                    orderData : orderPacket
+                }
+            });
+            $('body').append(b.$el);
+            console.log(orderPacket);
+            socket.emit('addOrder', orderPacket);
+            this.orderLists.push(orderPacket);
+            // this.orderLists = "";
+            // this.scrollToBottom();
+            console.log(this.orderLists)
+            this.totalnotifCount = this.totalnotifCount + 1;
+            // notif.totalnotifCount = this.orderList.length;
+            // notif.orderLists = this.orderList;
+
+
+            // this.bArr[order.order_code] = b;
+            // this.orderBox.unshift(order.order_code);
+        },
+
+        createOrder : function(){
+            let orderPacket = this.createOrderObj();
+            this.socket.emit('addOrder', orderPacket);
+            this.order.push(orderPacket);
+            this.order = "";
+            this.scrollToBottom();
+
+        },
+        createOrderObj : function(){
+            return {
+                order_code: '1',
+                time: new moment().format("hh:mm A"),
+                date: new moment().format("Y-MM-D")
+            }
+        },
+        scrollToBottom: function(){
+            $("#chatboxscroll-"+this.cChat.id).stop().animate({ scrollTop: $("#chatboxscroll-"+this.cChat.id)[0].scrollHeight}, 1);
+        },
+        addOrderResponse: function(data){
+            this.order.push(data);
+            console.log(order);
+            this.scrollToBottom();
+        },
+        getOrderResponse: function(data){
+            this.order = data.result;
+            this.$nextTick(function () {
+                this.scrollToBottom();
+            });
+        },
+    },
+    filters: {
+        dateFormat: function(value) {
+            return new moment(value).format("D-MMM-YY")
+        }
+    },
+    template: `
+        <p>a</p>
+       <!-- <div class="order_box" v-bind:id="'orderBox'" >
+            <div class="col-md-12 col-sm-12">
+                <div class="card">
+                    
+                    
+                    <div class="card-content collapse show">
+                        <div class="card-body user-chats" style="background-color: #F2F0F7; ">
+                            <div class="message_container">
+                                <div class="order">
+                                      <div class="direct-chat-messages" v-bind:id="'orderBoxscroll-'">
+                                        <div v-for="order in orderPacket" class="direct-chat-msg" v-bind:class="right" >
+                                           
+                                           <li class="scrollable-container media-list">
+                                                <a class="d-flex" href="javascript:void(0)">
+                                                    <div class="media d-flex align-items-start">
+                                                        <div class="media-left">
+                                                            <div class="avatar">
+                                                                <img src="{{asset('vuexy/app-assets/images/portrait/small/avatar-s-15.jpg')}}" alt="avatar" width="32" height="32">
+                                                            </div>
+                                                        </div>
+                                                        <div class="media-body">
+                                                            <p class="media-heading">
+                                                                <span class="font-weight-bolder">Congratulation Sam 🎉</span>winner!
+                                                            </p>
+                                                            <small class="notification-text"> Won the monthly best seller badge.</small>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                        
+                                                <a class="d-flex" href="javascript:void(0)">
+                                                    <div class="media d-flex align-items-start">
+                                                        <div class="media-left">
+                                                            <div class="avatar bg-light-danger">
+                                                                <div class="avatar-content">
+                                                                    <i class="avatar-icon" data-feather="x"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="media-body">
+                                                            <p class="media-heading">
+                                                                <span class="font-weight-bolder">Server down</span>&nbsp;registered
+                                                            </p>
+                                                            <small class="notification-text"> USA Server is down due to hight CPU usage</small>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                        
+                                            </li>
+                                            &lt;!&ndash;<div v-if="messagePacket.type == 'text'" v-bind:class="{ 'pull-right text-sender ' : (messagePacket.fromUserId == user_id), 'pull-left text-receiver' : (messagePacket.fromUserId != user_id) }" v-html=messagePacket.message 
+                                            class="direct-chat-text clearfix" style="margin-right: 1px;margin-left: 1px;word-break: break-all;padding: 3px 10px; width: 100%; padding: 5px">
+                                            </div>
+                                             <div class="direct-chat-info clearfix">
+                                                <small class="direct-chat-timestamp"  v-bind:class="{ 'pull-right ' : (messagePacket.fromUserId == user_id), 'pull-left ' : (messagePacket.fromUserId != user_id) }">{{ messagePacket.date | dateFormat }},{{ messagePacket.time }}</small>
+                                            </div>&ndash;&gt;
+                        
+                                           
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    
+                    &lt;!&ndash;<div style="display: block; padding:10px" class="box-footer">
+                        <div class="input-group">
+                            <input name="message" v-bind:id="'msginput-' + cChat.id" v-model.trim="message" placeholder="Type Message And Hit Enter" class="form-control" type="text" v-on:keydown="sendMessage($event)">
+                            <span class="input-group-btn">
+                            </span>
+                        </div>
+                    </div>&ndash;&gt;
+                </div>
+            </div>
+        </div>-->
+
+        `
 };

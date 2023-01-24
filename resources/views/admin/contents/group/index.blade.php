@@ -2,19 +2,13 @@
 @section('title', 'Group')
 
 @section('stylesheet')
-    <link href="{{asset('lib/bootstrap-toggle/bootstrap-toggle.min.css')}}" rel="stylesheet">
-    <style>
-        .toggle-on,  .toggle-off{
-            padding: 7px 15px 5px 15px !important;
-            font-weight: bold !important;
-        }
-    </style>
-@endsection
 
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+
+@endsection
 @section('breadcumbs')
     @include('admin.templates.breadcrumbs')
 @endsection
-
 @section('content')
     <div class="row">
 
@@ -245,4 +239,3 @@
     </script>
 
 @endsection
-

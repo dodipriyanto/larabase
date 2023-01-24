@@ -71,9 +71,9 @@
     <link rel="stylesheet" type="text/css" href="{{asset('modern-admin/app-assets/css/core/colors/palette-loader.css')}}">
 
 
-    <link rel="stylesheet" type="text/css"
-          href="{{asset('lib/flatpickr/css/flatpickr.min.css')}}">
-
+    <link rel="stylesheet" type="text/css" href="{{asset('lib/flatpickr/css/flatpickr.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('modern-admin/app-assets/vendors/css/forms/selects/select2.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('modern-admin/app-assets/css/plugins/forms/validation/form-validation.css')}}">
 
     <!-- END: Page CSS-->
 
@@ -98,6 +98,12 @@
 
         .card-body{
             padding: 1.2rem !important;
+        }
+
+        .error {
+            margin: 2px;
+            color: red;
+            background-color: #ffffff;
         }
     </style>
 
@@ -137,6 +143,8 @@
 
 <!-- BEGIN: Vendor JS-->
 <script src="{{asset('modern-admin/app-assets/vendors/js/vendors.min.js')}}"></script>
+<script src="{{asset('lib/jquery-validation/js/jquery.validate.min.js')}}"></script>
+
 <!-- BEGIN Vendor JS-->
 
 <!-- BEGIN: Page Vendor JS-->
@@ -173,8 +181,17 @@
 {{--<script src="{{ asset('lib/socket/chat.js') }}"></script>--}}
 
 <script src="{{asset('lib/flatpickr/js/flatpickr.js')}}"></script>
+<script src="{{asset('modern-admin/app-assets/vendors/js/forms/select/select2.full.min.js')}}"></script>
+<script src="{{asset('modern-admin/app-assets/js/scripts/forms/select/form-select2.js')}}"></script>
+<script src="{{asset('lib/sweetalert2/sweetalert2.js')}}"></script>
 
-
+<script src="{{asset('modern-admin/app-assets/vendors/js/forms/validation/jqBootstrapValidation.js')}}"></script>
+<script src="{{asset('modern-admin/app-assets/vendors/js/forms/icheck/icheck.min.js')}}"></script>
+<script src="{{asset('modern-admin/app-assets/vendors/js/forms/spinner/jquery.bootstrap-touchspin.js')}}"></script>
+<script src="{{asset('modern-admin/app-assets/vendors/js/forms/toggle/bootstrap-switch.min.js')}}"></script>
+<script src="{{asset('modern-admin/app-assets/vendors/js/forms/toggle/switchery.min.js')}}"></script>
+<script src="{{asset('modern-admin/app-assets/js/scripts/forms/form-login-register.js')}}"></script>
+<script src="{{asset('modern-admin/app-assets/js/scripts/forms/validation/form-validation.js')}}"></script>
 
 
 <!-- END: Page JS-->
