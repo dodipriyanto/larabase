@@ -1,7 +1,5 @@
 <?php
-/**
- * @author Dodi Priyanto<dodi.priyanto76@gmail.com>
- */
+
 use App\Models\Menu;
 
 function get_breadcrumbs($url)
@@ -16,8 +14,28 @@ function get_breadcrumbs($url)
         $menu = Menu::withTrashed()->with('parent')->where('route_name', '=', "$route_name")->first();
         return $menu;
     }
+}
 
-
+function setTagColor($param)
+{
+    $color = '';
+    switch ($param) {
+        case 'URGENT':
+        case 'OPEN':
+            $color = 'danger';
+            break;
+        case 'LOW':
+        case 'CLOSE' :
+            $color = 'success';
+            break;
+        case 'MEDIUM':
+        case 'PROCESS' :
+            $color = 'warning';
+            break;
+        default :
+            $color = 'danger';
+    }
+    return $color;
 }
 
 function getPagesAccess($current_path)
@@ -27,8 +45,8 @@ function getPagesAccess($current_path)
 
     if ($data->is_addable == 1)
     {
-        echo ' <button type="button" class="btn btn-rounded btn-primary text-bold pull-right addModal" style="float:right !important;">
-                            <i class="feather icon-plus-circle"></i>ADD</button>';
+        echo '<button type="button" class="btn round btn-info btn-min-width mr-2 mb-1 text-center text-bold pull-right addModal" ><i class="la la-plus-circle"></i>
+                                ADD</button>';
     }else{
         echo '';
     }
@@ -38,6 +56,19 @@ function pg2form_date($tgl) {
     $date = date_create($tgl);
     return date_format($date, "d-m-Y");
 }
+
+function format_interval(DateInterval $interval) {
+    $result = "";
+    if ($interval->y) { $result .= $interval->format("%y years "); }
+    if ($interval->m) { $result .= $interval->format("%m months "); }
+    if ($interval->d) { $result .= $interval->format("%d days "); }
+    if ($interval->h) { $result .= $interval->format("%h hours "); }
+    if ($interval->i) { $result .= $interval->format("%i minutes "); }
+    if ($interval->s) { $result .= $interval->format("%s seconds "); }
+
+    return $result;
+}
+
 
 function pg2form_word($tgl) {
     $date = date_create($tgl);

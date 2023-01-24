@@ -1,11 +1,14 @@
 @extends('admin.layouts.main')
 @section('title', 'Profile')
 
+@section('breadcumbs')
+    @include('admin.templates.breadcrumbs')
+@endsection
+<link rel="stylesheet" type="text/css"
+      href="{{asset('modern-admin/app-assets/css/plugins/forms/validation/form-validation.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('lib/bootstrap-fileinput/css/fileinput.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('lib/font-awesome/css/font-awesome.min.css')}}">
 @section('stylesheet')
-
-    <link rel="stylesheet" type="text/css" href="{{asset('lib/bootstrap-fileinput/css/fileinput.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('lib/font-awesome/css/font-awesome.min.css')}}">
-
 
     <style>
 
@@ -130,105 +133,117 @@
             color: #0062cc;
         }
     </style>
-@endsection
 
-@section('breadcumbs')
-    @include('admin.templates.breadcrumbs2')
 @endsection
-
 @section('content')
-    <div class="row">
-        <div class="col-md-12 col-lg-12">
-
-            <div class="card">
-
-                <div class="row">
-                    <div class="col-md-5">
-                        <div class="card-block">
-
-
-                            <div class="profile-img center">
-                                <img class="img-thumbnail img-fluid img-center"
-                                     style="max-height: 400px; max-width: 340px; margin-top: 5vh"
-                                     src="{{ Auth::user()->profile_picture ? asset('storage/images/'.Auth::user()->profile_picture) : asset('datta-able/assets/images/user/avatar-4.jpg')}}"
-                                     itemprop="thumbnail" alt="Profile Picture">
-                            </div>
+    <section id="configuration">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">{{$menu['breadcrumbs']->name}} </h4>
+                        <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                        <div class="heading-elements">
+                            <ul class="list-inline mb-0">
+                                <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                                <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                                <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                                <li><a data-action="close"><i class="ft-x"></i></a></li>
+                            </ul>
                         </div>
                     </div>
-
-                    <div class="col-md-7">
-                        <div class="card-block">
-                            <div class="profile-head">
-                                <h5>
-                                    {{$profile->fullname}}
-                                </h5>
-                                <h6>
-                                    {{$profile->group->name}}
-                                </h6>
-
-                            </div>
-
-                            <div class="profile-body">
-                                <div class="row " style="padding: 10px">
-
-                                    <div class="table-responsive">
-                                        <table class="table">
-
-                                            <tbody>
-
-                                            <tr>
-                                                <th scope="row">Username </th>
-                                                <td>:</td>
-                                                <td>{{$profile->username}}</td>
-
-                                            </tr>
-
-
-                                            <tr>
-                                                <th scope="row">Full Name </th>
-                                                <td>:</td>
-                                                <td>{{$profile->fullname}}</td>
-
-                                            </tr>
-
-
-
-                                            <tr>
-                                                <th scope="row">Email </th>
-                                                <td>:</td>
-                                                <td>{{$profile->email}}</td>
-
-                                            </tr>
-
-                                            <tr>
-                                                <th scope="row">Group </th>
-                                                <td>:</td>
-                                                <td>{{$profile->group->name}}</td>
-
-                                            </tr>
-
-                                            </tbody>
-                                        </table>
+                    <div class="card-content collapse show">
+                        <div class=" emp-profile" style="padding: 10px">
+                            <form method="post">
+                                <div class="row">
+                                    <div class="col-md-4 col-sm-12">
+                                        <div class="profile-img center">
+                                            <img class="img-thumbnail img-fluid img-center"
+                                                 style="max-height: 400px; max-width: 340px"
+                                                 src="{{(Auth::user()->profile_picture ? asset('storage/images/'.Auth::user()->profile_picture) : asset('no_image.png'))}}"
+                                                 itemprop="thumbnail" alt="Image description">
+                                        </div>
                                     </div>
+                                    <div class="col-md-8 col-sm-12">
+                                        <div class="profile-head">
+                                            <h5>
+                                                {{$profile->fullname}}
+                                            </h5>
+                                            <h6>
+                                                {{$profile->group->name}}
+                                            </h6>
+
+                                            <hr>
+                                        </div>
+
+                                        <div class="profile-body">
+                                            <div class="row " style="padding: 10px">
+                                                <table>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td><label for="">Username</label></td>
+                                                        <td><p>{{$profile->username}}</p></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><label for="">Email</label></td>
+                                                        <td><p>{{$profile->email}}</p></td>
+                                                    </tr>
+                                                    {{--                                                    <tr>--}}
+                                                    {{--                                                        <td><label for="">Full Name</label></td>--}}
+                                                    {{--                                                        <td><p>{{$profile->fullname}}</p></td>--}}
+                                                    {{--                                                    </tr>--}}
+                                                    <tr>
+                                                        <td><label for="">Group</label></td>
+                                                        <td><p>{{$profile->group->name}}<p></td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4 col-sm-12">
+                                    </div>
+
+
+                                    <div class="col-md-2 col-sm-12">
+                                        <input type="button" data-profile="{{$profile->profile_picture}}"
+                                               class="btn btn-primary" id="btnProfile" value="Edit Profile"/>
+                                    </div>
+
                                 </div>
-                                <input type="button" data-profile="{{$profile->profile_picture}}"
-                                       class="btn btn-primary" id="btnProfile" value="Edit Profile"/>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
     @include('admin.contents.profile._modal')
+
 @endsection
 
 @section('script')
+    <script src="{{asset('modern-admin/app-assets/vendors/js/forms/validation/jqBootstrapValidation.js')}}"></script>
+    <script src="{{asset('modern-admin/app-assets/vendors/js/forms/icheck/icheck.min.js')}}"></script>
+    <script src="{{asset('modern-admin/app-assets/vendors/js/forms/spinner/jquery.bootstrap-touchspin.js')}}"></script>
+    <script src="{{asset('modern-admin/app-assets/vendors/js/forms/toggle/bootstrap-switch.min.js')}}"></script>
+    <script src="{{asset('modern-admin/app-assets/vendors/js/forms/toggle/switchery.min.js')}}"></script>
+    <script src="{{asset('modern-admin/app-assets/js/scripts/forms/form-login-register.js')}}"></script>
+    <script src="{{asset('modern-admin/app-assets/js/scripts/forms/validation/form-validation.js')}}"></script>
+    <script src="{{asset('lib/sweetalert2/sweetalert2.js')}}"></script>
+
+    <script src="{{asset('modern-admin/app-assets/vendors/js/forms/select/select2.full.min.js')}}"></script>
+    <script src="{{asset('modern-admin/app-assets/js/scripts/forms/select/form-select2.js')}}"></script>
+    <script src="{{asset('lib/sweetalert2/sweetalert2.js')}}"></script>
 
     <!-- BEGIN: Page JS-->
     <script src="{{asset('lib/bootstrap-fileinput/js/fileinput.js')}}"></script>
     <script src="{{asset('lib/fa-theme/theme.js')}}"></script>
     <!-- BEGIN: Page JS-->
+
+
 
     <script type="text/javascript">
         var url = {
@@ -242,6 +257,9 @@
             $('#confirm_password').on('keyup', function () {
                 let confrim = $(this).val(),
                     password = $('#password').val();
+
+                console.log(confrim, password)
+
                 if (password != confrim) {
                     $('.invalid').removeAttr('hidden')
                     $('#btn-submit').attr('hidden', true)
@@ -259,60 +277,53 @@
                 let pp = $(this).data('profile');
                 makeInput(pp)
                 modalShow('myModal', 'Update Data');
+
+                /* $.get(url.detail,{id : id}, function (result){
+                     let response = result.data;
+                     $('#id').val(response.id)
+                     $('#name').val(response.name)
+                     $('#province_id').val(response.province.id).trigger('change')
+                 });*/
+
             });
 
-            $('#formModal').validate({ // initialize the plugin
-                rules: {
-                    username: {
-                        required: true,
-                    },
-                    fullname: {
-                        required: true,
-                    },
-                    email: {
-                        required: true,
-                    },
-                    password: {
-                        required: true,
-                    },
-                    confirm_password: {
-                        required: true,
+
+            $('#formModal').on('submit', function (event) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': CSRF_TOKEN
+                    }
+                });
+                let id = $('#id').val();
+
+
+                let file_data = $('#fileUpload').prop('files')[0],
+                    form_data = new FormData(document.getElementById('formModal'));
+
+                form_data.append('_token', $("input[name=_token]").val());
+                // form_data.append('_cache_id' , localStorage.getItem('cache_id'));
+                form_data.append('fileUpload', file_data);
+                form_data.append('id', id);
+
+
+                $.ajax({
+                    url: url.submit,
+                    data: form_data,
+                    type: 'POST',
+                    dataType: 'json',
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        swalStatus(response, "myModal")
+                        window.location.reload();
+
                     }
 
-                },
-                submitHandler: function (form) {
-
-                    $.ajaxSetup({
-                        headers: {
-                            'X-CSRF-TOKEN': CSRF_TOKEN
-                        }
-                    });
-                    let id = $('#id').val();
-
-
-                    let file_data = $('#fileUpload').prop('files')[0],
-                        form_data = new FormData(document.getElementById('formModal'));
-
-                    form_data.append('_token', $("input[name=_token]").val());
-                    // form_data.append('_cache_id' , localStorage.getItem('cache_id'));
-                    form_data.append('fileUpload', file_data);
-                    form_data.append('id', id);
-
-
-                    $.ajax({
-                        url: url.submit,
-                        data: form_data,
-                        type: 'POST',
-                        dataType: 'json',
-                        contentType: false,
-                        processData: false,
-                        success: function (response) {
-                            swalStatus(response, "myModal")
-                            window.location.reload();
-                        }
-                    });
-                }
+                });
+                event.preventDefault();
             });
+
+
         });
 
         function resetFileInput() {
@@ -366,10 +377,40 @@
                     elErrorContainer: '#kartik-file-errors',
                 });
             }
+
+            var uploadField = document.getElementById("fileUpload");
+
+
+            //set max file 5mb
+            uploadField.onchange = function() {
+                var ext = this.files[0].name.split('.').pop()
+                var limitSize = 5000000 //5 mb
+                var errorMessage = `File ${ext} terlalu besar! Maksimum ukuran file 5MB`
+                // console.log(ext);
+
+                // if(ext === 'mp4')
+                // {
+                //     limitSize = 25000000 //5 mb
+                //     errorMessage = `File ${ext} terlalu besar! Maksimum ukuran file 25MB`
+                //
+                // }
+                if(this.files[0].size > limitSize){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: `${errorMessage}`
+                    })
+
+                    $('#fileUpload').fileinput('destroy');
+                    $("#fileUpload").val(null);
+                    makeInput();
+
+                };
+            };
         }
 
     </script>
 
-
 @endsection
+
 

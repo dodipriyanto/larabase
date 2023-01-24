@@ -1,0 +1,126 @@
+#first-loader.basic-loader {
+    display: none;
+    z-index: 9998;
+    background-image: url("../images/loader.gif");
+    background-color: #f8f8f8;
+    position: fixed;
+}
+
+.basic-loader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: hsla(0, 0%, 100%, 0.8);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 400px 300px;
+    z-index: 9998;
+}
+
+.basic-loader.fixed-container {
+    position: fixed !important;
+    z-index: 9998;
+}
+.bold {
+    font-weight: bold;
+}
+.title-gauge {
+    position: relative;
+    z-index: 1;
+    color: #000;
+    padding: 10px;
+}
+.bg-light-green {
+    background-color: #dbc9ff;
+}
+.bg-light-cyan {
+    background-color: #fff2cc;
+}
+.bg-light-blues {
+    background-color: #d6ebf8;
+}
+#container-pie .highcharts-container {
+    margin-top: -15px;
+}
+.highcharts-container {
+    width: 100% !important;
+}
+#pagu_kementerian, #target_kementerian {
+    margin-top: -5px;
+}
+.box-header .box-title {
+    padding: 10px 10px 0 10px;
+}
+.navbar-nav>.user-menu>.dropdown-menu>li.user-header {
+    height: auto;
+}
+@media (min-width: 992px){
+    .modal-lg {
+        width: 80%;
+    }
+}
+@media (max-width: 768px){
+    .content {
+        padding: 0;
+    }
+    .content-header {
+        padding: 15px 0 0 0;
+    }
+}
+.dataTables_wrapper .col-sm-12 {
+    overflow-x: auto;
+}
+.table .dropdown-menu {
+    position: relative;
+    width: 100%;
+}
+.table-report th {
+    vertical-align: middle !important;
+    text-align: center;
+    background-color: #c0392b;
+    color: white;
+}
+.table-report-top th {
+    vertical-align: middle !important;
+    text-align: center;
+    background-color: #0fac47;
+    color: white;
+}
+.table-report-blue th {
+    vertical-align: middle !important;
+    text-align: center;
+    background-color: #0faca5;
+    color: white;
+}
+.table-report-orange th {
+    vertical-align: middle !important;
+    text-align: center;
+    background-color: #f7651f;
+    color: white;
+}
+.currency {
+    text-align: right !important;
+}
+.app-title {
+    padding: 15px;
+    color: #fff;
+    width: 83%;
+    text-align: center;
+    font-weight: bold;
+}
+.pointer {
+    cursor: pointer;
+}
+
+/* select2 style */
+.select2-container .select2-selection--single,
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 34px;
+}
+
+tr.border-yellow td {
+    border: solid 1px #f39c12 !important;
+    border-top: solid 1px #f39c12 !important;
+}

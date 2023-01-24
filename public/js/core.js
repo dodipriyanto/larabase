@@ -3,44 +3,97 @@ $('.addModal').on('click', function (){
     modalShow('myModal','Add Data');
 });
 
-$('.number-only').on('input', function (event) {
-    this.value = this.value.replace(/[^0-9]/g, '');
-});
-
 $('#myModal').on('hidden.bs.modal', function (){
     formReset();
 });
 
-function unescapeHTML(escapedHTML) {
-    return escapedHTML.replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&');
+function validateSwal(text)
+{
+    Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: `${text}`,
+    }).then(function (){
+
+    });
 }
 
-function swalStatus(result, modalId, hidden = true)
+function validateDateInput(dt1, dt2)
 {
-    // console.log(result)
+    if (dt1 == '') {
+        validateSwal('Start Date Required', tgl1);
+        // $("#tgl1").focus();
+        return false;
+    }
+
+    if (dt2 == '') {
+        validateSwal('End Date Required');
+        // $("#tgl2").focus();
+        return false;
+    }
+
+    if (dt1 > dt2){
+        validateSwal('Please Select Correct Date');
+        return false
+    }
+}
+
+function setTagColor(param) {
+    let color;
+    switch (param.name) {
+        case 'OPEN':
+            color = 'danger';
+            break;
+        case 'URGENT':
+            color = 'danger';
+            break;
+        case 'CLOSE' :
+            color = 'success';
+            break;
+        case 'LOW' :
+            color = 'success';
+            break;
+        case 'PROCESS' :
+            color = 'warning';
+            break;
+        case 'MEDIUM' :
+            color = 'warning';
+            break;
+
+        default :
+            color = 'danger'
+    }
+    return color;
+}
+
+
+function unescapeHTML(escapedHTML) {
+    return escapedHTML.replace(/&lt;/g,'<').replace(/&gt;/g,'>')
+}
+
+function swalStatus(result, modalId, timer)
+{
     let message = "";
-    if (result.status === "error"){
+    if (result.status == 'error'){
         $.each(result.message, function (item, val){
-            message +=  `${val}`;
+            message +=  ` <span class="la la-exclamation red"> ${val}</span><br>`;
         })
     }else{
         message = result.message
     }
-    swal({
-        html:true,
+    Swal.fire({
         icon: `${result.status}`,
-        title: `${result.status.toUpperCase()}`,
-        text: message,
+        title: `${result.status}`,
+        html: message,
         showCancelButton: false,
         showConfirmButton: false,
         timer: 1000,
     }).then(() => {
-        swal.close();
-        // console.log(hidden);
-        if (hidden === true){
-            modalHide(`${modalId}`);
+        if (timer){
+            window.location.reload();
         }
-
+        Swal.close();
+        modalHide(`${modalId}`);
         tableReload(table);
     });
 }
@@ -61,25 +114,14 @@ function swalSuccess(result, modalId)
     });
 }
 
-// function modalShow(modalId, modalTitle){
-//     $('.modal-title').text(modalTitle)
-//
-//     $(`#${modalId}`).modal({backdrop: 'static', keyboard: false});
-// }
-//
-// function modalHide(modalId){
-//     $(`#${modalId}`).modal("hide");
-// }
-
-function modalShow(modalId, modalTitle)
-{
+function modalShow(modalId, modalTitle){
     $('.modal-title').text(modalTitle)
-    $(`#${modalId}`).addClass('md-show');
+
+    $(`#${modalId}`).modal({backdrop: 'static', keyboard: false});
 }
 
-function modalHide(modalId)
-{
-    $('.md-effect-1').removeClass('md-show')
+function modalHide(modalId){
+    $(`#${modalId}`).modal("hide");
 }
 
 function tableReload(tableName)
@@ -108,3 +150,7 @@ function formEnable(){
     $("#formModal select").removeAttr("disabled", true);
     $("#formModal button").removeAttr("disabled", true);
 }
+
+$('.number-only').on('input', function (event) {
+    this.value = this.value.replace(/[^0-9]/g, '');
+});

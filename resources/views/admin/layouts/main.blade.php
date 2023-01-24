@@ -1,202 +1,185 @@
-<!DOCTYPE html>
-
-<html lang="en">
+<!-- BEGIN: Head-->
 
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="description"
+          content="Modern admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities with bitcoin dashboard.">
+    <meta name="keywords"
+          content="admin template, modern admin template, dashboard template, flat admin template, responsive admin template, web app, crypto dashboard, bitcoin dashboard">
+    <meta name="author" content="PIXINVENT">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+{{--    @if(Request::server ("SERVER_NAME") == 'helpdesk.valdo-intl.com')--}}
+{{--        <meta name="ws_url" content="{{ env('WS_URL_PROD') }}">--}}
+{{--    @else--}}
+{{--        <meta name="ws_url" content="{{ env('WS_URL') }}">--}}
+{{--    @endif--}}
+    <meta name="user_id" content="{{Auth::id() }}">
 
-    <title> {{env('APP_NAME') }}
+    <title>Helpdesk -
         @hasSection('title')
-           - @yield('title')
+            @yield('title')
         @else
-           -
+            Dashboard
         @endif
     </title>
-    <!-- HTML5 Shim and Respond.js IE11 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 11]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    <!-- Meta -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="description"
-          content="Datta Able Bootstrap admin template made using Bootstrap 4 and it has huge amount of ready made feature, UI components, pages which completely fulfills any dashboard needs."/>
-    <meta name="keywords"
-          content="admin templates, bootstrap admin templates, bootstrap 4, dashboard, dashboard templets, sass admin templets, html admin templates, responsive, bootstrap admin templates free download,premium bootstrap admin templates, datta able, datta able bootstrap admin template">
-    <meta name="author" content="Codedthemes"/>
+    {{--    <link rel="apple-touch-icon" href="{{asset('modern-admin/app-assets/images/ico/apple-icon-120.png')}}">--}}
+    {{--    <link rel="shortcut icon" type="image/x-icon" href="{{asset('modern-admin/app-assets/images/ico/favicon.ico')}}">--}}
+    <link rel="apple-touch-icon" href="{{asset('front/logo.ico')}}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset('front/logo.ico')}}">
+    <link
+            href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i%7CQuicksand:300,400,500,700"
+            rel="stylesheet">
 
-    <!-- Favicon icon -->
-    <link rel="icon" href="{{asset('datta-able/assets/images/favicon.ico')}}" type="image/x-icon">
-    <!-- fontawesome icon -->
-    <link rel="stylesheet" href="{{asset('datta-able/assets/fonts/fontawesome/css/fontawesome-all.min.css')}}">
-    <!-- animation css -->
-    <link rel="stylesheet" href="{{asset('datta-able/assets/plugins/animation/css/animate.min.css')}}">
+    <!-- BEGIN: Vendor CSS-->
+    <link rel="stylesheet" type="text/css" href="{{asset('modern-admin/app-assets/vendors/css/vendors.min.css')}}">
+    <link rel="stylesheet" type="text/css"
+          href="{{asset('modern-admin/app-assets/vendors/css/weather-icons/climacons.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('modern-admin/app-assets/fonts/meteocons/style.css')}}">
+    {{--    <link rel="stylesheet" type="text/css" href="{{asset('modern-admin/app-assets/vendors/css/charts/morris.css')}}">--}}
+    {{--    <link rel="stylesheet" type="text/css" href="{{asset('modern-admin/app-assets/vendors/css/charts/chartist.css')}}">--}}
+    {{--    <link rel="stylesheet" type="text/css"--}}
+    {{--          href="{{asset('modern-admin/app-assets/vendors/css/charts/chartist-plugin-tooltip.css')}}">--}}
+<!-- END: Vendor CSS-->
 
-    <!-- data tables css -->
-    <link rel="stylesheet" href="{{asset('datta-able/assets/plugins/data-tables/css/datatables.min.css')}}">
-    <!-- modal-window-effects css -->
-    <link rel="stylesheet" href="{{asset('datta-able/assets/plugins/modal-window-effects/css/md-modal.css')}}">
+    <!-- BEGIN: Theme CSS-->
+    <link rel="stylesheet" type="text/css" href="{{asset('modern-admin/app-assets/css/bootstrap.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('modern-admin/app-assets/css/bootstrap-extended.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('modern-admin/app-assets/css/colors.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('modern-admin/app-assets/css/components.css')}}">
+    <!-- END: Theme CSS-->
 
-    <!-- vendor css -->
-    <link rel="stylesheet" href="{{asset('datta-able/assets/css/style.css')}}">
+    <!-- BEGIN: Page CSS-->
+    <link rel="stylesheet" type="text/css"
+          href="{{asset('modern-admin/app-assets/css/core/menu/menu-types/vertical-menu.css')}}">
+    <link rel="stylesheet" type="text/css"
+          href="{{asset('modern-admin/app-assets/css/core/colors/palette-gradient.css')}}">
+    <link rel="stylesheet" type="text/css"
+          href="{{asset('modern-admin/app-assets/fonts/simple-line-icons/style.css')}}">
+    <link rel="stylesheet" type="text/css"
+          href="{{asset('modern-admin/app-assets/css/core/colors/palette-gradient.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('modern-admin/app-assets/css/pages/timeline.css')}}">
+
+    <link rel="stylesheet" type="text/css" href="{{asset('modern-admin/app-assets/vendors/css/tables/datatable/datatables.min.css')}}">
+
+    <link rel="stylesheet" type="text/css" href="{{asset('modern-admin/app-assets/vendors/css/extensions/sweetalert2.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('modern-admin/app-assets/css/core/menu/menu-types/vertical-menu.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('modern-admin/app-assets/css/core/colors/palette-gradient.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('modern-admin/app-assets/css/core/colors/palette-tooltip.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('modern-admin/app-assets/css/plugins/loaders/loaders.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('modern-admin/app-assets/css/core/colors/palette-loader.css')}}">
 
 
-    <!-- select2 css -->
-    <link rel="stylesheet" href="{{asset('datta-able/assets/plugins/select2/css/select2.min.css')}}">
-    <!-- multi-select css -->
-    <link rel="stylesheet" href="{{asset('datta-able/assets/plugins/multi-select/css/multi-select.css')}}">
+    <link rel="stylesheet" type="text/css"
+          href="{{asset('lib/flatpickr/css/flatpickr.min.css')}}">
 
 
-    <style>
-        .hidden{
-            display: none;
-        }
+    <!-- END: Page CSS-->
 
-        .select2-container--open {
-            z-index: 9999999
-        }
+    <!-- BEGIN: Custom CSS-->
+    <link rel="stylesheet" type="text/css" href="{{asset('modern-admin/assets/css/style.css')}}">
+    <!-- END: Custom CSS-->
 
-        .error {
-            margin: 2px;
-            color: red;
-            background-color: #ffffff;
-        }
+    <link rel="stylesheet" type="text/css" href="{{asset('table/css/main.css')}}">
 
-        .dud-logout:hover{
-            background-color: yellow;
-
-        }
-
-    </style>
+    <link rel="stylesheet" type="text/css" href="{{asset('css/chat.css')}}">
 
     @yield('stylesheet')
 
+    <style>
+        .content-wrapper{
+            padding: 1.5rem 2rem !important;
+        }
+
+        .card-header {
+            padding : 1.2rem !important;
+        }
+
+        .card-body{
+            padding: 1.2rem !important;
+        }
+    </style>
+
+
 
 </head>
-<body>
-<!-- [ Pre-loader ] start -->
-<div class="loader-bg">
-    <div class="loader-track">
-        <div class="loader-fill"></div>
+
+<body class="vertical-layout vertical-menu 2-columns   fixed-navbar" data-open="click" data-menu="vertical-menu"
+      data-col="2-columns">
+
+
+@include('admin.templates.header')
+
+@include('admin.templates.sidebar')
+
+
+<!-- BEGIN: Content-->
+<div class="app-content content">
+    <div class="content-overlay">
+
     </div>
-</div>
-<!-- [ Pre-loader ] End -->
-
-<!-- [ navigation menu ] start -->
-@include('admin.templates.sidebar2')
-
-<!-- [ navigation menu ] end -->
-
-<!-- [ Header ] start -->
-@include('admin.templates.header2')
-<!-- [ Header ] end -->
-
-<!-- [ chat user list ] start -->
-<section class="header-user-list">
-
-    <div class="h-list-body">
-        <a href="#!" class="h-close-text"><i class="feather icon-chevrons-right"></i></a>
-        <div class="main-friend-cont scroll-div">
+    <div class="content-wrapper">
+        <div class="content-header row">
+            @yield('breadcumbs')
         </div>
-    </div>
-</section>
-<!-- [ chat user list ] end -->
-
-<!-- [ chat message ] start -->
-<section class="header-chat">
-    <div class="h-list-header">
-        <h6>Josephin Doe</h6>
-        <a href="#!" class="h-back-user-list"><i class="feather icon-chevron-left"></i></a>
-    </div>
-    <div class="h-list-body">
-        <div class="main-chat-cont scroll-div">
-        </div>
-    </div>
-
-</section>
-<!-- [ chat message ] end -->
-
-<!-- [ Main Content ] start -->
-<div class="pcoded-main-container">
-    <div class="pcoded-wrapper">
-        <div class="pcoded-content">
-
-            <div class="page-header">
-                <div class="page-block">
-                    <!-- [ breadcrumb ] start -->
-                @yield('breadcumbs')
-                <!-- [ breadcrumb ] end -->
-                </div>
-            </div>
-
-            <div class="main-body">
-                <div class="page-wrapper">
-                    <!-- [ Main Content ] start -->
-                @yield('content')
-                <!-- [ Main Content ] end -->
-                </div>
-            </div>
+        <div class="content-body">
+            @yield('content')
         </div>
     </div>
 </div>
-<!-- [ Main Content ] end -->
+<!-- END: Content-->
 
+<div class="sidenav-overlay"></div>
+<div class="drag-target"></div>
 
-<!-- Warning Section Ends -->
+@include('admin.templates.footer')
 
-<!-- Required Js -->
-<script src="{{asset('datta-able/assets/js/vendor-all.min.js')}}"></script>
-<script src="{{asset('datta-able/assets/plugins/bootstrap/js/bootstrap.min.js')}}"></script>
-<script src="{{asset('datta-able/assets/js/pcoded.min.js')}}"></script>
+<!-- BEGIN: Vendor JS-->
+<script src="{{asset('modern-admin/app-assets/vendors/js/vendors.min.js')}}"></script>
+<!-- BEGIN Vendor JS-->
 
-<!-- sweetalert Js -->
-<script src="{{asset('datta-able/assets/plugins/sweetalert/js/sweetalert.min.js')}}"></script>
-<script src="{{asset('datta-able/assets/js/pages/ac-alert.js')}}"></script>
+<!-- BEGIN: Page Vendor JS-->
+{{--<script src="{{asset('modern-admin/app-assets/vendors/js/charts/chartist.min.js')}}"></script>--}}
+{{--<script src="{{asset('modern-admin/app-assets/vendors/js/charts/chartist-plugin-tooltip.min.js')}}"></script>--}}
+{{--<script src="{{asset('modern-admin/app-assets/vendors/js/charts/raphael-min.js')}}"></script>--}}
+{{--<script src="{{asset('modern-admin/app-assets/vendors/js/charts/morris.min.js')}}"></script>--}}
+<script src="{{asset('modern-admin/app-assets/vendors/js/timeline/horizontal-timeline.js')}}"></script>
+<script src="{{asset('modern-admin/app-assets/vendors/js/extensions/sweetalert2.all.min.js')}}"></script>
+<script src="{{asset('modern-admin/app-assets/vendors/js/extensions/polyfill.min.js')}}"></script>
+<!-- END: Page Vendor JS-->
 
-<!-- datatable Js -->
-<script src="{{asset('datta-able/assets/plugins/data-tables/js/datatables.min.js')}}"></script>
-<script src="{{asset('datta-able/assets/js/pages/tbl-datatable-custom.js')}}"></script>
+<!-- BEGIN: Theme JS-->
+<script src="{{asset('modern-admin/app-assets/js/core/app-menu.js')}}"></script>
+<script src="{{asset('modern-admin/app-assets/js/core/app.js')}}"></script>
+<!-- END: Theme JS-->
 
-<!-- modal-window-effects Js -->
-<script src="{{asset('datta-able/assets/plugins/modal-window-effects/js/classie.js')}}"></script>
-<script src="{{asset('datta-able/assets/plugins/modal-window-effects/js/modalEffects.js')}}"></script>
+<!-- BEGIN: Page JS-->
+{{--<script src="{{asset('modern-admin/app-assets/js/scripts/pages/dashboard-ecommerce.js')}}"></script>--}}
 
-<!-- select2 Js -->
-<script src="{{asset('datta-able/assets/plugins/select2/js/select2.full.min.js')}}"></script>
+<script src="{{asset('modern-admin/app-assets/js/scripts/tables/datatables/datatable-basic.js')}}"></script>
+<script src="{{asset('modern-admin/app-assets/vendors/js/tables/datatable/datatables.min.js')}}"></script>
+<script src="{{asset('modern-admin/app-assets/js/scripts/extensions/ex-component-sweet-alerts.js')}}"></script>
+<script src="{{asset('modern-admin/app-assets/js/scripts/tooltip/tooltip.js')}}"></script>
 
-<!-- multi-select Js -->
-<script src="{{asset('datta-able/assets/plugins/multi-select/js/jquery.quicksearch.js')}}"></script>
-<script src="{{asset('datta-able/assets/plugins/multi-select/js/jquery.multi-select.js')}}"></script>
-
-<!-- form-select-custom Js -->
-<script src="{{asset('datta-able/assets/js/pages/form-select-custom.js')}}"></script>
-
-<!-- core function Js -->
+{{--CORE JS--}}
 <script src="{{asset('js/core.js')}}"></script>
+<script src="{{asset('table/js/main.js')}}"></script>
+
+{{--SOCKET JS--}}
+{{--<script src="{{ asset('lib/socket/vue.js') }}"></script>--}}
+{{--<script src="{{ asset('lib/socket/socket.io.js') }}"></script>--}}
+{{--<script src="{{ asset('lib/socket/moment.min.js') }}"></script>--}}
+{{--<script src="{{ asset('lib/socket/chat.js') }}"></script>--}}
+
+<script src="{{asset('lib/flatpickr/js/flatpickr.js')}}"></script>
 
 
-<!-- jquery-validation Js -->
-<script src="{{asset('datta-able/assets/plugins/jquery-validation/js/jquery.validate.min.js')}}"></script>
-<!-- form-picker-custom Js -->
-<script src="{{asset('datta-able/assets/js/pages/form-validation.js')}}"></script>
-
-<script type="text/javascript">
-    $(document).ready(function () {
-
-        $(document).on('click', '.md-close', function (e){
-            modalHide('myModal','View Data');
-
-        });
-
-    });
 
 
-</script>
+<!-- END: Page JS-->
 
 @yield('script')
 </body>
-
 
 </html>

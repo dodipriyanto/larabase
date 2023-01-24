@@ -12,7 +12,7 @@
 @endsection
 
 @section('breadcumbs')
-    @include('admin.templates.breadcrumbs2')
+    @include('admin.templates.breadcrumbs')
 @endsection
 
 @section('content')
